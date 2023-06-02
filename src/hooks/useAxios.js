@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 
-const useAxios = (baseUrl, resOfUrl) => {
+const useAxios = () => {
   const [state, setState] = useState([]);
 
-  const fetchData = async (data) => {
+  const fetchData = async (baseUrl, resOfUrl="") => {
     const response = await axios.get(`${baseUrl}${resOfUrl}`);
     setState((data) => [...data, response.data]);
   };
