@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import PokemonSelect from "./PokemonSelect";
@@ -10,15 +10,12 @@ import useAxios from "./hooks/useAxios";
  * Can also add a new card at random,
  * or from a dropdown of available pokemon. */
 function PokeDex() {
-  let [pokemon, setPokemon] = useState([]);
+  let [pokemon, fetchData] = useAxios();
 
   const addPokemon = async (name) => {
-    let baseUrl = "https://pokeapi.co";
-    let restOfUrl = `/api/v2/pokemon/${name}/`;
-    [pokemon, setPokemon] = useAxios(baseUrl, restOfUrl);
-
-    setPokemon((pokemon) => [...pokemon, { id: uuid() }]);
+    fetchData(`https://pokeapi.co`, `/api/v2/pokemon/${name}/`);
   };
+
   return (
     <div className="PokeDex">
       <div className="PokeDex-buttons">
